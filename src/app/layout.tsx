@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Providers } from '@/components/Providers';
 import { Nav } from '@/components/Nav';
 import { Main } from '@/components/Main';
 
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Nav />
-        <Main>{children}</Main>
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          <Nav />
+          <Main>{children}</Main>
+        </body>
+      </html>
+    </Providers>
   );
 }
