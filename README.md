@@ -1,5 +1,9 @@
 This is a short demo of Bitfinex api using redux as store
 
+## Github
+
+https://github.com/gblejman/bitfinex-demo
+
 ## Pages
 
 - /: displays ticker table, refetches at a set interval. Nav platform status badge is also refetched at a set interval
@@ -21,4 +25,7 @@ npm run dev
 
 \*\* Note that api endpoint is pointing to the documentation endpoint which is acting as a proxy - as a way to avoid CORS issues.
 
-##
+## Live
+
+tickers: https://bitfinex-demo-nu.vercel.app/
+ws messages: https://bitfinex-demo-nu.vercel.app/ws-messages
