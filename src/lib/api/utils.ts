@@ -45,7 +45,7 @@ export const mapTicker = (ticker: TickerArr) => {
   const fieldMapping = symbol.startsWith('t') ? TRADING_TICKER_FIELDS : FUNDING_TICKER_FIELDS;
 
   return fieldMapping.reduce((obj, [i, field]) => {
-    obj[field] = ticker[i];
+    obj[field] = ticker[i as number];
     return obj;
   }, {} as Ticker);
 };

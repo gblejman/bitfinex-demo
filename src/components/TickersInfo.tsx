@@ -1,7 +1,7 @@
 'use client';
 
 import { useInterval } from '@/hooks/useInterval';
-import { Tickers } from '@/lib/types';
+import { FundingTicker, Tickers, TradingTicker, isTradingTicker } from '@/lib/types';
 import { useDispatch, useSelector } from '@/store';
 import { getTickers, selectTickers, selectIsLoading, selectError } from '@/store/features/tickersSlice';
 
@@ -13,7 +13,7 @@ export const TickersInfo = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  const fetch = () => dispatch(getTickers());
+  const fetch = () => dispatch(getTickers([]));
 
   useInterval(fetch, CHECK_INTERVAL_MS);
 
@@ -43,7 +43,11 @@ const TickerTable = ({ tickers = {} }: { tickers: Tickers }) => {
           <tr key={ticker.symbol}>
             <td>{ticker.symbol}</td>
             <td>{ticker.lastPrice}</td>
-            <td>{ticker.dailyChangeRelative || ticker.dailyChangePerc}</td>
+            <td>
+              {isTradingTicker(ticker)
+                ? (ticker as TradingTicker).dailyChangeRelative
+                : (ticker as FundingTicker).dailyChangePerc}
+            </td>
             <td>{ticker.high}</td>
             <td>{ticker.low}</td>
           </tr>

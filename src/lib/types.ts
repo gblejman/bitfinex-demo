@@ -79,3 +79,5 @@ export type Ticker = TradingTicker | FundingTicker;
 export type Tickers = {
   [key: Sym]: Ticker;
 };
+
+export const isTradingTicker = (ticker: Ticker) => ticker.symbol.startsWith('t');
