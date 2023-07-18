@@ -1,17 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { Api } from '../../lib/api';
-import { Api, api } from '@/lib/api';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { Api } from '@/lib/api';
+import { Tickers } from '@/lib/types';
 import { ReduxState } from '..';
-import { Ticker } from '../../lib/types';
 
 type State = {
-  data: Ticker[];
+  data: Tickers;
   isLoading: boolean;
   error: Error | undefined;
 };
 
 const initialState: State = {
-  data: [],
+  data: {},
   isLoading: false,
   error: undefined,
 };
@@ -23,10 +22,10 @@ export const tickersSlice = createSlice({
     builder.addCase(getTickers.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getTickers.rejected, (state, action) => {
+    builder.addCase(getTickers.rejected, (state, action: PayloadAction<Error | undefined>) => {
       state.error = action.payload;
     });
-    builder.addCase(getTickers.fulfilled, (state, action) => {
+    builder.addCase(getTickers.fulfilled, (state, action: PayloadAction<Tickers>) => {
       state.isLoading = false;
       state.error = undefined;
       state.data = action.payload;

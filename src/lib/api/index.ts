@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { config } from './config';
-import { logger } from './logger';
-import { StatusResponse, TickerResponse } from './types';
+import { config } from '../config';
+import { logger } from '../logger';
+import { StatusResponse, TickersResponse } from '../types';
+import { mapTickers } from './utils';
 
 const log = logger.child({ module: 'api' });
 
@@ -42,12 +43,12 @@ const getStatus = async () => {
 };
 
 const getTickers = async (symbols: string[] = ['ALL']) => {
-  const data: TickerResponse = await client.request({
+  const data: TickersResponse = await client.request({
     url: '/tickers',
     params: { symbols: symbols.join(',') },
   });
 
-  return data;
+  return mapTickers(data);
 };
 
 export const api = {
@@ -56,47 +57,3 @@ export const api = {
 };
 
 export type Api = typeof api;
-
-// const buildTicker = ([
-//   bid,
-//   bidSize,
-//   ask,
-//   askSize,
-//   dialyChange,
-//   dailyChangeRelative,
-//   lastPrice,
-//   volume,
-//   high,
-//   low,
-// ]) =>
-
-// const buildTicker = (values: unknown[]) => {
-//   const symbol = values[0];
-
-//   if (symbol.start)
-// }
-// const buildTicker = ([
-//   bid,
-//   bidSize,
-//   ask,
-//   askSize,
-//   dialyChange,
-//   dailyChangeRelative,
-//   lastPrice,
-//   volume,
-//   high,
-//   low,
-// ]) => ({
-
-//     bid,
-//     bidSize,
-//     ask,
-//     askSize,
-//     dialyChange,
-//     dailyChangeRelative,
-//     lastPrice,
-//     volume,
-//     high,
-//     low,
-
-// })

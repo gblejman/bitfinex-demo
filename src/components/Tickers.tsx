@@ -1,44 +1,54 @@
 'use client';
 
-import { Ticker } from '../lib/types';
-import { useDispatch, useSelector } from '../store';
-import { getTickers, selectTickers, selectIsLoading, selectError } from '../store/features/tickersSlice';
+import { useInterval } from '@/hooks/useInterval';
+import { Tickers } from '@/lib/types';
+import { useDispatch, useSelector } from '@/store';
+import { getTickers, selectTickers, selectIsLoading, selectError } from '@/store/features/tickersSlice';
 
-export const Tickers = () => {
+const CHECK_INTERVAL_MS = 5 * 1000;
+
+export const TickersInfo = () => {
   const dispatch = useDispatch();
   const tickers = useSelector(selectTickers);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  const handleClick = () => dispatch(getTickers());
+  const fetch = () => dispatch(getTickers());
+
+  useInterval(fetch, CHECK_INTERVAL_MS, [dispatch]);
 
   return (
-    <p>
-      <h4>
-        <button onClick={handleClick} disabled={isLoading}>
-          Fetch
-        </button>
-      </h4>
-
-      {isLoading ? (
-        <span>Loading...</span>
-      ) : error ? (
-        <span>Error: {error.message}</span>
-      ) : (
-        <TickerList tickers={tickers} />
-      )}
-    </p>
+    <div className="flex flex-col w-full">
+      <span className="h-5">{isLoading ? 'Loading...' : ''}</span>
+      {error && <div className="h-5 bg-red-500">Error: {error.message}</div>}
+      <TickerList tickers={tickers} />
+    </div>
   );
 };
 
-const TickerList = ({ tickers = [] }: { tickers: Ticker[] }) => {
+const TickerList = ({ tickers = {} }: { tickers: Tickers }) => {
   return (
-    <div>
-      {tickers.map((t) => (
-        <p key={t[0]}>
-          Symbol: {t[0]} - Bid: {t[0].startsWith('t') ? t[1] : t[2]} - Ask: {t[0].startsWith('t') ? t[3] : t[5]}
-        </p>
-      ))}
-    </div>
+    <table className="table-auto">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Last Price</th>
+          <th>24h Change</th>
+          <th>24h High</th>
+          <th>24h Low</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.values(tickers).map((ticker) => (
+          <tr key={ticker.symbol}>
+            <td>{ticker.symbol}</td>
+            <td>{ticker.lastPrice}</td>
+            <td>{ticker.dailyChangeRelative || ticker.dailyChangePerc}</td>
+            <td>{ticker.high}</td>
+            <td>{ticker.low}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };

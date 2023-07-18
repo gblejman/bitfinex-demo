@@ -3,6 +3,7 @@ This is a short demo of Bitfinex api using redux as store
 ## Redux
 
 - platform slice: contains a regular manually configured thunk - no toolkit helpers
+- tickers slice: contains a thunk created with createAsyncThunk + extraReducers builder
 
 ## Configuration
 

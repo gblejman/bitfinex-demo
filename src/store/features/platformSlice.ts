@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Api } from '../../lib/api';
+import { Api } from '@/lib/api';
 import { ReduxDispatch, ReduxState } from '..';
 
 type State = {
