@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from '@/store';
 import { selectStatus, selectIsLoading, getStatus } from '@/store/features/platformSlice';
+import { useInterval } from '@/hooks/useInterval';
 
 const CHECK_INTERVAL_MS = 10 * 1000;
 const STATUS_BG_COLOR = ['bg-red-500', 'bg-green-500'];
@@ -12,15 +12,9 @@ export const Status = () => {
   const status = useSelector(selectStatus);
   const isLoading = useSelector(selectIsLoading);
 
-  useEffect(() => {
-    const tick = () => {
-      dispatch(getStatus());
-    };
+  const fetch = () => dispatch(getStatus());
 
-    const unsubscribe = setInterval(tick, CHECK_INTERVAL_MS);
-
-    return () => clearInterval(unsubscribe);
-  }, [dispatch]);
+  useInterval(fetch, CHECK_INTERVAL_MS);
 
   return (
     <div className="flex items-center">

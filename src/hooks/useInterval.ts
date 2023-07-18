@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-export const useInterval = (fn: () => void, ms: number, deps: unknown[] = []) => {
+export const useInterval = (fn: () => void, ms: number) => {
   return useEffect(() => {
     const tick = () => {
       fn();
     };
 
-    const unsubscribe = setInterval(tick, ms);
+    const id = setInterval(tick, ms);
 
-    return () => clearInterval(unsubscribe);
-  }, deps);
+    return () => clearInterval(id);
+  }, [fn, ms]);
 };

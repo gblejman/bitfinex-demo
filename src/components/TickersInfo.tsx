@@ -15,7 +15,7 @@ export const TickersInfo = () => {
 
   const fetch = () => dispatch(getTickers());
 
-  useInterval(fetch, CHECK_INTERVAL_MS, [dispatch]);
+  useInterval(fetch, CHECK_INTERVAL_MS);
 
   return (
     <div className="flex flex-col w-full">
