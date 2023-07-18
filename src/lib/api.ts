@@ -1,4 +1,4 @@
-import axios, { AxiosError, isAxiosError } from 'axios';
+import axios from 'axios';
 import { config } from './config';
 import { logger } from './logger';
 import { StatusResponse, TickerResponse } from './types';

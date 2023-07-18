@@ -35,7 +35,7 @@ export const { setStatus, setIsLoading, setError } = platformSlice.actions;
 /** Simple thunk */
 export const getStatus =
   () =>
-  async (dispatch: ReduxDispatch, _: any, { api }: { api: Api }) => {
+  async (dispatch: ReduxDispatch, _getState: any, { api }: { api: Api }) => {
     try {
       dispatch(setIsLoading(true));
       const data = await api.getStatus();

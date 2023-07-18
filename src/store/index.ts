@@ -9,6 +9,7 @@ import { logger } from '../lib/logger';
 import { api } from '@/lib/api';
 
 import platformSlice from './features/platformSlice';
+import tickersSlice from './features/tickersSlice';
 
 const log = logger.child({ module: 'store' });
 
@@ -24,6 +25,7 @@ export const useSelector: TypedUseSelectorHook<ReduxState> = useReduxSelector;
 export const store = configureStore({
   reducer: {
     platform: platformSlice,
+    tickers: tickersSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
