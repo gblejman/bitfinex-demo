@@ -32,7 +32,6 @@ export const platformSlice = createSlice({
 
 export const { setStatus, setIsLoading, setError } = platformSlice.actions;
 
-/** Simple thunk */
 export const getStatus =
   () =>
   async (dispatch: ReduxDispatch, _getState: any, { api }: { api: Api }) => {

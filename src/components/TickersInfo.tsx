@@ -21,12 +21,12 @@ export const TickersInfo = () => {
     <div className="flex flex-col w-full">
       <span className="h-5">{isLoading ? 'Loading...' : ''}</span>
       {error && <div className="h-5 bg-red-500">Error: {error.message}</div>}
-      <TickerList tickers={tickers} />
+      <TickerTable tickers={tickers} />
     </div>
   );
 };
 
-const TickerList = ({ tickers = {} }: { tickers: Tickers }) => {
+const TickerTable = ({ tickers = {} }: { tickers: Tickers }) => {
   return (
     <table className="table-auto">
       <thead>

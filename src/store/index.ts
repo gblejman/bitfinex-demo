@@ -5,11 +5,14 @@ import {
   type TypedUseSelectorHook,
 } from 'react-redux';
 
-import { logger } from '../lib/logger';
+import { config } from '@/lib/config';
+import { logger } from '@/lib/logger';
 import { api } from '@/lib/api';
+import { createWs } from '@/lib/ws';
 
 import platformSlice from './features/platformSlice';
 import tickersSlice from './features/tickersSlice';
+import wsSlice, { addMessage } from './features/wsSlice';
 
 const log = logger.child({ module: 'store' });
 
@@ -26,6 +29,7 @@ export const store = configureStore({
   reducer: {
     platform: platformSlice,
     tickers: tickersSlice,
+    ws: wsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -36,3 +40,8 @@ export const store = configureStore({
 });
 
 store.subscribe(() => log.debug(store.getState(), 'store state'));
+
+export const ws = createWs({
+  url: config.ws.url,
+  onMessage: (message) => store.dispatch(addMessage(message)),
+});

@@ -1,4 +1,4 @@
-import { TickersInfo } from '@/components/Tickers';
+import { TickersInfo } from '@/components/TickersInfo';
 
 export default function Home() {
   return (

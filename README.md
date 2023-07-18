@@ -1,9 +1,15 @@
 This is a short demo of Bitfinex api using redux as store
 
+## Pages
+
+- /: displays ticker table, refetches at a set interval. Nav platform status badge is also refetched at a set interval
+- /ws-messages: displays ws messages after subscribing via ws
+
 ## Redux
 
-- platform slice: contains a regular manually configured thunk - no toolkit helpers
-- tickers slice: contains a thunk created with createAsyncThunk + extraReducers builder
+- platform slice: handles platform status. Manual thunk + reducers - no toolkit helpers
+- tickers slice: handles rest tickers. Thunk created with createAsyncThunk + extraReducers builder
+- ws slice: handles ws messages. Regular thunk + reducers
 
 ## Configuration
 
@@ -13,4 +19,6 @@ Create .env.local, copy .env.example values and run:
 npm run dev
 ```
 
-Note that api endpoint is pointing to the documentation endpoint which is acting as a proxy - as a way to avoid CORS issues.
+\*\* Note that api endpoint is pointing to the documentation endpoint which is acting as a proxy - as a way to avoid CORS issues.
+
+##
