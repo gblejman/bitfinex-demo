@@ -13,7 +13,7 @@ export const TickersInfo = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  const fetch = () => dispatch(getTickers([]));
+  const fetch = () => dispatch(getTickers(['ALL']));
 
   useInterval(fetch, CHECK_INTERVAL_MS);
 
