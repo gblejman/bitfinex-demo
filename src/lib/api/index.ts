@@ -14,7 +14,9 @@ const client = axios.create({
 client.interceptors.request.use(
   (config) => {
     // remove keys where value is empty string
-    const filteredParams = Object.entries(config.params).filter(([k, v]) => !(typeof v === 'string' && !v.length));
+    const filteredParams = Object.entries(config.params || {}).filter(
+      ([k, v]) => !(typeof v === 'string' && !v.length),
+    );
     config.params = Object.fromEntries(filteredParams);
 
     const { method, baseURL, url, params, data } = config;
