@@ -1,7 +1,8 @@
 This is a short demo of Bitfinex api using redux as store
 
 ## Live
-https://bitfinex-demo-nu.vercel.app
+https://bitfinex-demo-nu.vercel.app (tickers)
+https://bitfinex-demo-nu.vercel.app/ws-messages (websocket msgs)
 
 ## Github
 
